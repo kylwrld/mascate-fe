@@ -156,6 +156,9 @@ function RelatorioPage() {
                         fill: "#ffffff",
                         fontFamily: "Inter",
                     },
+                    // [`.g[clip-path]`]: {
+                    //     color: "black"
+                    // },
                 })}
                 series={reportData != null ? reportData : []}
                 xAxis={[{ data: [dayDisplay], scaleType: "band" }]}
@@ -165,7 +168,7 @@ function RelatorioPage() {
                         : item.value?.toString();
                 }}
                 colors={["#f97316", "#ffffff"]}
-                margin={{ top: 100, bottom: 30, left: 40, right: 10 }}
+                margin={{ top: 170, bottom: 30, left: 40, right: 10 }}
                 borderRadius={10}
                 height={500}
             />
