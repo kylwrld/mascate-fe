@@ -135,6 +135,7 @@ function RelatorioPage() {
                         placeholder="Selecione um dia"
                         className="basic-single"
                         classNamePrefix="select"
+                        isSearchable={false}
                         styles={style}
                         name="color"
                         options={days}
