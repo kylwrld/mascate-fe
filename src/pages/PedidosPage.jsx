@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Pedido} from "../components/Pedido";
+import Pedido from "../components/Pedido";
 import Switch from "@mui/material/Switch";
 import { SyncLoader } from "react-spinners";
 
