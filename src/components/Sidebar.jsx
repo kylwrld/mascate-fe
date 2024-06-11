@@ -1,9 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { FaAngleLeft } from "react-icons/fa";
-import { FaUtensils } from "react-icons/fa";
-import { FaClipboardList } from "react-icons/fa";
-import { FaCalendarDays } from "react-icons/fa6";
 
 import { FiCoffee } from "react-icons/fi";
 import { TbFileReport } from "react-icons/tb";

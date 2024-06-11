@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BarChart, barElementClasses } from "@mui/x-charts/BarChart";
-import { BarLabel } from "@mui/x-charts/BarChart";
-
+import { BarChart } from "@mui/x-charts/BarChart";
 import { axisClasses } from "@mui/x-charts/ChartsAxis";
 
 import Select from "react-select";

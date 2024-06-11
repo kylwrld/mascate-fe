@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import Checkbox from "@mui/material/Checkbox";
 import CardapioCard from "../components/CardapioCard";
 import { SyncLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";

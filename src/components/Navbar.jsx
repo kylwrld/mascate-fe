@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
+
 import { NavLink, useNavigate } from "react-router-dom";
-import senacIcon from '../assets/images/senacIcon.png'
 import { FaCheckCircle } from "react-icons/fa";
 
 
