@@ -20,9 +20,6 @@ function Pedido({ pedidoData }) {
         weekday:"long"
     };
 
-    console.log(new Intl.DateTimeFormat('pt-BR', options).format(date));
-    console.log(date.toLocaleString())
-
     return (
         <div
             className="flex flex-col w-80 h-96 border border-neutral-700 rounded-md p-4 shadow-[0_15px_20px_-15px_rgba(0,0,0,0.3)] shadow-black

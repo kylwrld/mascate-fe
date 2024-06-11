@@ -43,6 +43,16 @@ function RelatorioPage() {
         { value: "sexta", label: "Sexta-feira" },
     ];
 
+    const d = {
+        "segunda":"Segunda-feira",
+        "terca":"Terça-feira",
+        "quarta":"Quarta-feira",
+        "quinta":"Quinta-feira",
+        "sexta":"Sexta-feira",
+        "sabado":"Sábado-feira",
+        "domingo":"Domingo-feira",
+    }
+
     function handleData(reportType) {
         if (reportType == "Diário") {
             return (reportData) => {
@@ -61,13 +71,13 @@ function RelatorioPage() {
         };
 
         date = new Intl.DateTimeFormat('pt-BR', options).format(date) // terça-feira
-
         let func = handleData("Diário")
-
         let index = date.indexOf("-")
         date = date.slice(0, index) // terça
         if (date == "terça") {date = "terca"} // terca
-
+        
+        setDayDisplay(d[date])
+        
         const fetchRelatorio = async () => {
             try {
                 const res = await fetch(
