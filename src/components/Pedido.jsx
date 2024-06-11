@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import moment from 'moment';
-import 'moment/dist/locale/pt-BR';
+// import moment from 'moment';
+// import 'moment/dist/locale/pt-BR';
 
 function Pedido({ pedidoData }) {
     const navigate = useNavigate();
@@ -10,22 +10,18 @@ function Pedido({ pedidoData }) {
     let index = time.indexOf(".")
     time = time.slice(0, index)
     
-    // let date = new Date
-    // date.setTime(Date.parse(time));
+    let date = new Date
+    date.setTime(Date.parse(time));
     
-    // var options = {
-    //     day: "2-digit",
-    //     hour: "2-digit",
-    //     minute: "2-digit"
-    // };
-    
-    moment.locale("pt-BR")
-    var d = moment(time)
-    const fromNow = d.fromNow()
-    const date = d.format("HH:MM | DD/MM/YYYY")
+    var options = {
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        weekday:"long"
+    };
 
-    // console.log(new Intl.DateTimeFormat('pt-BR', options).format(date));
-    // console.log(date.toLocaleString())
+    console.log(new Intl.DateTimeFormat('pt-BR', options).format(date));
+    console.log(date.toLocaleString())
 
     return (
         <div
@@ -42,9 +38,9 @@ function Pedido({ pedidoData }) {
                 <p className='text-white text-2xl font-bold py-2'>{`Pedido ${pedidoData.id}`}</p>
             </div>
             <div className="flex flex-col pt-2">
-                <p className="text-neutral-500">Horário do pedido: </p>
-                <p className="text-white">{date}</p>
-                <p className="text-white">{fromNow}</p>
+                <p className="text-neutral-500">Data do pedido: </p>
+                <p className="text-white">{new Intl.DateTimeFormat('pt-BR', options).format(date)}</p>
+                {/* <p className="text-white">{fromNow}</p> */}
             </div>
         </div>
     );

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BarChart, barElementClasses } from "@mui/x-charts/BarChart";
 import { BarLabel } from "@mui/x-charts/BarChart";
-import moment from 'moment';
 
 import { axisClasses } from "@mui/x-charts/ChartsAxis";
 
@@ -58,17 +57,18 @@ function RelatorioPage() {
     }
 
     useEffect(() => {
-        let today = new Date;
-        today.getTime()
-        moment.locale("pt-BR")
+        let date = new Date;
+        var options = {
+            weekday:"long"
+        };
+
+        date = new Intl.DateTimeFormat('pt-BR', options).format(date) // terça-feira
 
         let func = handleData("Diário")
 
-        var d = moment(today)
-        let date = d.format("dddd")
         let index = date.indexOf("-")
-        date = date.slice(0, index)
-        if (date == "terça") {date = "terca"}
+        date = date.slice(0, index) // terça
+        if (date == "terça") {date = "terca"} // terca
 
         const fetchRelatorio = async () => {
             try {
