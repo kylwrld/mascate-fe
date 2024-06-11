@@ -168,7 +168,7 @@ function RelatorioPage() {
                         : item.value?.toString();
                 }}
                 colors={["#f97316", "#ffffff"]}
-                margin={{ top: 170, bottom: 30, left: 40, right: 10 }}
+                margin={{ top: 210, bottom: 30, left: 40, right: 10 }}
                 borderRadius={10}
                 height={500}
             />
