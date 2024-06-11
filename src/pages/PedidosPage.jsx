@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { FaInfoCircle, FaAlignRight } from "react-icons/fa";
-import Pedido from "../components/Pedido";
-import { toast } from "react-toastify";
-
-import Switch from "@mui/material/Switch";
+import {Pedido} from "../components/Pedido";
+import {Switch} from "@mui/material/Switch";
 import { SyncLoader } from "react-spinners";
 
 function PedidosPage() {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Checkbox from "@mui/material/Checkbox";
+import {Checkbox} from "@mui/material/Checkbox";
 
 function CardapioCard({name, identifier, handleOnChange, handleQuantityChange}) {
     const [quantity, setQuantity] = useState(0);
