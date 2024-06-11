@@ -33,6 +33,7 @@ function App() {
         createRoutesFromElements(
             <Route path="/" element={<MainLayout></MainLayout>}>
                 {/* <Route index element={<PedidosPage />} /> */}
+                <Route index element={<PedidosPage />} />
                 <Route path="/pedido/:id" element={<PedidoPage />} />
                 <Route path="/pedidos" element={<PedidosPage />} />
                 <Route path="/cardapio" element={<CardapioPage createOrder={createOrder} />} />
