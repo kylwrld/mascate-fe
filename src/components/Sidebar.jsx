@@ -9,11 +9,6 @@ import { FiCoffee } from "react-icons/fi";
 import { TbFileReport } from "react-icons/tb";
 import { BiFoodMenu } from "react-icons/bi";
 
-
-
-
-
-
 function Sidebar() {
     return (
         <div className="w-20 md:w-64 border-r border-zinc-700">

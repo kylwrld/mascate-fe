@@ -1,26 +1,50 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import moment from 'moment';
+import 'moment/dist/locale/pt-BR';
 
-function Pedido({ id }) {
+function Pedido({ pedidoData }) {
     const navigate = useNavigate();
     
+    let time = pedidoData.data
+    let index = time.indexOf(".")
+    time = time.slice(0, index)
+    
+    // let date = new Date
+    // date.setTime(Date.parse(time));
+    
+    // var options = {
+    //     day: "2-digit",
+    //     hour: "2-digit",
+    //     minute: "2-digit"
+    // };
+    
+    moment.locale("pt-BR")
+    var d = moment(time)
+    const fromNow = d.fromNow()
+    const date = d.format("HH:MM | DD/MM/YYYY")
+
+    // console.log(new Intl.DateTimeFormat('pt-BR', options).format(date));
+    // console.log(date.toLocaleString())
+
     return (
         <div
             className="flex flex-col w-80 h-96 border border-neutral-700 rounded-md p-4 shadow-[0_15px_20px_-15px_rgba(0,0,0,0.3)] shadow-black
                     hover:scale-105 transition ease-in-out duration-300"
-            onClick={(e) => {return navigate(`/pedido/${id}`)}}
+            onClick={(e) => {return navigate(`/pedido/${pedidoData.id}`, { state: {pedidoData} })}}
         >
-            <div className="flex flex-col grow border-b border-neutral-700 pb-4">
+            <div className="flex flex-col grow border-b border-neutral-700">
                 <div className="flex grow justify-center items-center bg-zinc-800 rounded-md">
-                    <p className="text-green-500 text-md md:text-4xl font-bold">
-                        Finalizado
+                    <p className="text-yellow-500 text-md md:text-4xl font-bold">
+                        Pendente
                     </p>
                 </div>
-                {/* <p className='text-white text-2xl font-bold py-2'>Dia da semana</p> */}
+                <p className='text-white text-2xl font-bold py-2'>{`Pedido ${pedidoData.id}`}</p>
             </div>
-            <div className="flex flex-col pt-4">
+            <div className="flex flex-col pt-2">
                 <p className="text-neutral-500">Horário do pedido: </p>
-                <p className="text-white">17:30PM 05/04/2024</p>
+                <p className="text-white">{date}</p>
+                <p className="text-white">{fromNow}</p>
             </div>
         </div>
     );

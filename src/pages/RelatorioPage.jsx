@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BarChart, barElementClasses } from "@mui/x-charts/BarChart";
 import { BarLabel } from "@mui/x-charts/BarChart";
+import moment from 'moment';
 
 import { axisClasses } from "@mui/x-charts/ChartsAxis";
 
@@ -27,6 +28,10 @@ function RelatorioPage() {
     };
 
     const [reportType, setReportType] = useState("Diário");
+    const [reportData, setReportData] = useState(null);
+    const [day, setDay] = useState("segunda");
+    const [dayDisplay, setDayDisplay] = useState("Segunda-feira");
+    const [loading, setLoading] = useState(true);
 
     const options = [
         { value: "daily", label: "Diário" },
@@ -41,84 +46,103 @@ function RelatorioPage() {
         { value: "sexta", label: "Sexta-feira" },
     ];
 
-    console.log(reportType);
+    function handleData(reportType) {
+        if (reportType == "Diário") {
+            return (reportData) => {
+                let newData = reportData.map((obj) => { return {data: [obj["quantidade"]], label: obj["nome"]} })
+                setReportData(newData)
+            }
+        } else {
+
+        }
+    }
+
+    useEffect(() => {
+        let today = new Date;
+        today.getTime()
+        moment.locale("pt-BR")
+
+        let func = handleData("Diário")
+
+        var d = moment(today)
+        let date = d.format("dddd")
+        let index = date.indexOf("-")
+        date = date.slice(0, index)
+        if (date == "terça") {date = "terca"}
+
+        const fetchRelatorio = async () => {
+            try {
+                const res = await fetch(
+                    `https://mascate-be.onrender.com/api/relatorio/dia/${date}/`
+                );
+                const data = await res.json();
+                func(data.pedidos)
+
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchRelatorio();
+    }, []);
+    
+    async function handleDayChange(e) {
+        setDay(e.value)
+        setDayDisplay(e.label)
+        try {
+            const res = await fetch(
+                `https://mascate-be.onrender.com/api/relatorio/dia/${e.value}/`
+            );
+            const data = await res.json();
+            let newData = data.pedidos.map((obj) => { return {data: [obj["quantidade"]], label: obj["nome"]} })
+            setReportData(newData)
+
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
 
     return (
         <div className="flex flex-col h-full">
-            <div className="flex justify-start items-center flex-wrap gap-5 md:gap-10 h-48 md:h-32 lg:h-20 px-8 border-b border-neutral-700">
-                {/* <select className="font-mulish text-lg px-4 py-2 rounded-full border-[3px] border-orange-500 outline-none focus:ring-blue-500 appearance-none" defaultValue={"a"} value={reportType} onChange={(e) => setReportType(e.target.value)}> */}
-                {/* <option value="daily">Selecione um relatório</option> */}
-                {/* <option value="daily">Diário</option>
-                    <option value="weekly">Semanal</option>
-                </select>
-                
-                <select className="font-mulish text-lg px-4 py-2 rounded-full border-[3px] border-orange-500 outline-none focus:ring-blue-500 appearance-none" defaultValue={"a"} value={reportType} onChange={(e) => setReportType(e.target.value)}>
-                    <option value="segunda">Segunda</option>
-                    <option value="terca">Terça</option>
-                    <option value="quarta">Quarta</option>
-                    <option value="quinta">Quinta</option>
-                    <option value="sexta">Sexta</option>
-                </select> */}
-
-                <Select
+            {/* h-48 md:h-32 lg:h-20 */}
+            <div className="flex justify-start items-center flex-wrap gap-5 md:gap-10 h-20 px-8 border-b border-neutral-700">
+                {/* <Select
                     placeholder="Selecione um relatório"
                     className="basic-single"
                     classNamePrefix="select"
-                    // isClearable={true}
                     styles={style}
                     name="color"
                     options={options}
                     onChange={(e) => setReportType(e.label)}
-                />
+                /> */}
 
-                {reportType == "Diário" ? (
+                {/* {reportType == "Diário" ? (
                     <Select
                         placeholder="Selecione um dia"
                         className="basic-single"
                         classNamePrefix="select"
-                        // isClearable={true}
                         styles={style}
                         name="color"
                         options={days}
+                        onChange={(e) => setDay(e.value)}
                     />
                 ) : (
                     ""
-                )}
+                )} */}
+                <Select
+                        placeholder="Selecione um dia"
+                        className="basic-single"
+                        classNamePrefix="select"
+                        styles={style}
+                        name="color"
+                        options={days}
+                        onChange={(e) => handleDayChange(e)}
+                    />
             </div>
-
-            {
-                // reportType.value == "daily" ? () => {
-                //     const day = ""
-                // } :
-                // reportType.value == "weekly" ? () => {
-                //     const days = [
-                //         { value: "segunda", label: "Segunda-feira" },
-                //         { value: "terca", label: "Terça-feira" },
-                //         { value: "quarta", label: "Quarta-feira" },
-                //         { value: "quinta", label: "Quinta-feira" },
-                //         { value: "sexta", label: "Sexta-feira" },
-                //     ]
-                // } : ""
-                // reportType.value == "montly" ? () => {
-                //     const month = [
-                //         { value: "segunda", label: "Segunda-feira" },
-                //         { value: "terca", label: "Terça-feira" },
-                //         { value: "quarta", label: "Quarta-feira" },
-                //         { value: "quinta", label: "Quinta-feira" },
-                //         { value: "sexta", label: "Sexta-feira" },
-                //     ]
-                // } :
-                // reportType.value == "yearly" ? () => {
-                //     const days = [
-                //         { value: "segunda", label: "Segunda-feira" },
-                //         { value: "terca", label: "Terça-feira" },
-                //         { value: "quarta", label: "Quarta-feira" },
-                //         { value: "quinta", label: "Quinta-feira" },
-                //         { value: "sexta", label: "Sexta-feira" },
-                //     ]
-                // } : ""
-            }
-
             <BarChart
                 sx={(theme) => ({
                     [`.${axisClasses.root}`]: {
@@ -135,14 +159,8 @@ function RelatorioPage() {
                         fontFamily: "Inter",
                     },
                 })}
-                series={[
-                    { data: [45, 20], label: "Coxinha" },
-                    { data: [51, 25], label: "Pastel" },
-                    { data: [45, 30], label: "Bolo" },
-                    { data: [62, 70], label: "Pão-pizza" },
-                    { data: [45, 10], label: "Pizza" },
-                ]}
-                xAxis={[{ data: ["Segunda", "Terça"], scaleType: "band" }]}
+                series={reportData != null ? reportData : []}
+                xAxis={[{ data: [dayDisplay], scaleType: "band" }]}
                 barLabel={(item, context) => {
                     return context.bar.height < 60
                         ? null

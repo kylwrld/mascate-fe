@@ -2,17 +2,19 @@ import React, { useEffect, useState } from "react";
 
 import Checkbox from "@mui/material/Checkbox";
 import CardapioCard from "../components/CardapioCard";
-import { ClipLoader } from "react-spinners";
+import { SyncLoader } from "react-spinners";
+import { useNavigate } from "react-router-dom";
 
 function CardapioPage({ createOrder }) {
     const [comidas, setComidas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [pedidoList, setPedidoList] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchComidas = async () => {
             try {
-                const res = await fetch("http://127.0.0.1:8000/api/comida/");
+                const res = await fetch("https://mascate-be.onrender.com/api/comida/");
                 const data = await res.json();
                 setComidas(data.data);
             } catch (error) {
@@ -65,6 +67,13 @@ function CardapioPage({ createOrder }) {
     function handleSubmit(e) {
         e.preventDefault();
 
+        for (let i = 0; i < pedidoList.length; i++) {
+            if (pedidoList[i].quantidade == 0) {
+                e.target.classList.add("invalid");
+                return;
+            }
+        }
+
         if (pedidoList.length == 0) {
             e.target.classList.add("invalid");
             return;
@@ -75,27 +84,31 @@ function CardapioPage({ createOrder }) {
         };
 
         createOrder(order);
+        navigate("/cardapio")
     }
 
     return (
-        <form className="flex flex-col h-full group" onSubmit={handleSubmit}>
-            <div className="flex justify-start items-center gap-5 h-20 px-8 border-b border-neutral-700">
-                <button
-                    className="px-4 py-2 bg-orange-500 text-white text-md font-mulish rounded-full
-                                hover:scale-110 active:scale-100 transition ease-in-out duration-300"
-                    type="submit"
-                >
-                    Fazer pedido
-                </button>
-                <p className="text-white hidden group-[.invalid]:block font-mulish">
-                    Não envie um pedido vazio.
-                </p>
+        <form className="flex flex-col h-full group overflow-y-auto" onSubmit={handleSubmit}>
+            <div>
+
+                <div className="flex justify-start items-center gap-5 h-20 px-8 border-b border-neutral-700">
+                    <button
+                        className="px-4 py-2 bg-orange-500 text-white text-md font-mulish rounded-full
+                                    hover:scale-110 active:scale-100 transition ease-in-out duration-300"
+                        type="submit"
+                    >
+                        Fazer pedido
+                    </button>
+                    <p className="text-white hidden group-[.invalid]:block font-mulish">
+                        Não envie um pedido vazio.
+                    </p>
+                </div>
             </div>
-            <div className="flex flex-wrap gap-16 p-4">
+            <div className="flex flex-wrap gap-10 2xl:gap-16 p-4 overflow-y-auto">
                 {loading ? (
                     <div className="flex justify-center items-center grow">
-                        <ClipLoader
-                            size={230}
+                        <SyncLoader
+                            size={50}
                             color="#ffffff"
                             loading={loading}
                         />

@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 
 function App() {
     async function createOrder(orderList) {
-        const res = await fetch("http://127.0.0.1:8000/api/pedidocomida/", {
+        const res = await fetch("https://mascate-be.onrender.com/api/pedidocomida/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

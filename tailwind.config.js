@@ -19,6 +19,7 @@ export default {
 
     },
     screens: {
+        'small': '364px',
         'navwrap': '455px',
         ...defaultTheme.screens,
     },

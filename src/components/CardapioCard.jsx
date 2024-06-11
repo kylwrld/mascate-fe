@@ -5,7 +5,7 @@ function CardapioCard({name, identifier, handleOnChange, handleQuantityChange}) 
     const [quantity, setQuantity] = useState(0);
 
     return (
-        <div className="flex flex-col justify-center items-start gap-5 w-96 h-32 border border-neutral-700 rounded-lg p-4">
+        <div className="flex flex-col justify-center items-start gap-5 w-80 h-32 border border-neutral-700 rounded-lg p-4">
             <p className="text-white font-mulish font-bold">{name}</p>
             <div className="flex justify-between flex-row w-full gap-5">
                 <input
