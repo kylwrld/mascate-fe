@@ -23,7 +23,6 @@ function App() {
             body: JSON.stringify(orderList),
         });
         if (res.ok) {
-            console.log(await res.json())
             toast.success("Pedido feito.")
         }
         return;
@@ -32,22 +31,11 @@ function App() {
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route path="/" element={<MainLayout></MainLayout>}>
-                {/* <Route index element={<PedidosPage />} /> */}
                 <Route index element={<PedidosPage />} />
                 <Route path="/pedido/:id" element={<PedidoPage />} />
                 <Route path="/pedidos" element={<PedidosPage />} />
                 <Route path="/cardapio" element={<CardapioPage createOrder={createOrder} />} />
                 <Route path="/relatorio" element={<RelatorioPage />} />
-                {/* <Route path="/question/:id" element={<QuestionPage/>}/>
-                <Route element={<PrivateRoute />}>
-                    <Route path="/teste" element={<Teste />} />
-                    <Route path="/ask-question" element={<CreateQuestionPage/>}/>
-                    <Route path="/question/answer/:id" element={<AnswerQuestion/>}/>
-                </Route>
-                <Route element={<AvoidRoute />}>
-                    <Route path="/signup" element={<SignupPage />} />
-                    <Route path="/login" element={<LoginPage />} />
-                </Route> */}
             </Route>
         )
     );

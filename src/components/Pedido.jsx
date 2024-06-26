@@ -20,6 +20,9 @@ function Pedido({ pedidoData }) {
         weekday:"long"
     };
 
+    const color = pedidoData.status == "PENDENTE" ? "text-yellow-500" : "text-green-500" 
+    const text = pedidoData.status == "PENDENTE" ? "Pendente" : "Entregue" 
+
     return (
         <div
             className="flex flex-col w-80 h-96 border border-neutral-700 rounded-md p-4 shadow-[0_15px_20px_-15px_rgba(0,0,0,0.3)] shadow-black
@@ -28,8 +31,8 @@ function Pedido({ pedidoData }) {
         >
             <div className="flex flex-col grow border-b border-neutral-700">
                 <div className="flex grow justify-center items-center bg-zinc-800 rounded-md">
-                    <p className="text-yellow-500 text-md md:text-4xl font-bold">
-                        Pendente
+                    <p className={`${color} text-md md:text-4xl font-bold`}>
+                        {text}
                     </p>
                 </div>
                 <p className='text-white text-2xl font-bold py-2'>{`Pedido ${pedidoData.id}`}</p>
