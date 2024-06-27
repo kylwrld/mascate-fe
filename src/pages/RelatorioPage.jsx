@@ -59,8 +59,6 @@ function RelatorioPage() {
                 let newData = reportData.map((obj) => { return {data: [obj["quantidade"]], label: obj["nome"]} })
                 setReportData(newData)
             }
-        } else {
-
         }
     }
 
